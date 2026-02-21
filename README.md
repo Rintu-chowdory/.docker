@@ -94,3 +94,4 @@ docker push <your-dockerhub-username>/dev-env:1.0.0
   FROM <your-dockerhub-username>/dev-env:latest
   RUN npm install -g @angular/cli
   ```
+# CI/CD enabled
