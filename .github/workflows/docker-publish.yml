@@ -1,0 +1,46 @@
+name: 🐳 Build & Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    name: Build & Push to Docker Hub
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── 1. Checkout the repo ─────────────────────
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+
+      # ── 2. Login to Docker Hub ───────────────────
+      - name: 🔑 Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # ── 3. Set up Docker Buildx ──────────────────
+      - name: 🔧 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # ── 4. Build & Push ──────────────────────────
+      - name: 🚀 Build and Push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: |
+            riinnttuu/dev-env:latest
+            riinnttuu/dev-env:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # ── 5. Print image digest ────────────────────
+      - name: ✅ Done
+        run: echo "Image pushed → riinnttuu/dev-env:latest"
