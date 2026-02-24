@@ -1,0 +1,38 @@
+# Vercel Web Analytics Implementation
+
+Successfully implemented Vercel Web Analytics for the kali-dashboard React + Vite project.
+
+## Changes Made
+
+### 1. Installed Dependencies
+- Added `@vercel/analytics` package to the project
+- Updated `package.json` and `package-lock.json` with the new dependency
+
+### 2. Modified Files
+- **src/App.jsx**:
+  - Added import: `import { Analytics } from "@vercel/analytics/react"`
+  - Added `<Analytics />` component at the end of the main App component (before closing `</div>` tags)
+  - Removed unused `useCallback` import to fix linting error
+
+## Implementation Details
+
+Following the guide for React (create-react-app pattern), the Analytics component was added to the main App component in `src/App.jsx`. This is a wrapper around the tracking script that provides seamless integration with React.
+
+**Note**: The plain React implementation does not have automatic route support, but the Analytics component will track page views and custom events as documented in the Vercel Analytics documentation.
+
+## Verification
+
+✅ Build successful - no compilation errors
+✅ Linting passed - only pre-existing warning (unrelated to changes)
+✅ Dependencies installed correctly
+✅ No breaking changes to existing functionality
+
+## Next Steps
+
+After deployment to Vercel:
+1. Enable Web Analytics in the Vercel dashboard (Analytics tab → Enable)
+2. Deploy the app using `vercel deploy` or via Git integration
+3. Verify tracking by checking browser Network tab for `/_vercel/insights/view` requests
+4. View analytics data in the Vercel dashboard after users visit the site
+
+The implementation is complete and ready for deployment to Vercel.
