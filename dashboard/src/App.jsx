@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 // ── Particle Canvas ──────────────────────────────────────────────────────────
 function ParticleCanvas() {
@@ -439,6 +440,7 @@ export default function App() {
         )}
 
       </div>
+      <Analytics />
     </div>
   );
 }
